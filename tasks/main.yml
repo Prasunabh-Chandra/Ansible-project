@@ -1,0 +1,22 @@
+---
+# tasks file for httpd-setup
+#
+- name: Install apache httpd
+  ansible.builtin.apt:
+    name: apache2
+    state: present
+    update_cache: yes
+
+- name: Start and enable Apache on Ubuntu
+  ansible.builtin.service:
+    name: apache2
+    state: started
+    enabled: true
+
+- name: Copy file with owner and permissions
+  ansible.builtin.copy:
+    src: files/index.html
+    dest: /var/www/html
+    owner: root
+    group: root
+    mode: '0644'
